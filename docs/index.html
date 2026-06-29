@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>梦幻手游藏宝阁 · 角色查询</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1>梦幻手游藏宝阁 · 角色查询</h1>
+    <p id="meta">加载中…</p>
+  </header>
+
+  <section class="filters card">
+    <div class="row">
+      <label>关键词<input id="q" type="search" placeholder="角色名 / 门派 / ordersn"></label>
+      <label>明细类型
+        <select id="type">
+          <option value="">全部</option>
+          <option value="身上装备">身上装备</option>
+          <option value="仓库装备">仓库装备</option>
+          <option value="仓库物品">仓库物品</option>
+          <option value="背包物品">背包物品</option>
+          <option value="召唤灵">召唤灵</option>
+        </select>
+      </label>
+      <label>最低价<input id="priceMin" type="number" placeholder="元"></label>
+      <label>最高价<input id="priceMax" type="number" placeholder="元"></label>
+      <button id="searchBtn" type="button">查询</button>
+    </div>
+  </section>
+
+  <section class="tabs card">
+    <button class="tab active" data-tab="roles">角色汇总</button>
+    <button class="tab" data-tab="details">明细列表</button>
+    <button class="tab" data-tab="pets">召唤灵</button>
+  </section>
+
+  <main>
+    <div id="rolesPanel" class="panel active"></div>
+    <div id="detailsPanel" class="panel"></div>
+    <div id="petsPanel" class="panel"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

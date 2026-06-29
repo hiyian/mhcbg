@@ -1,0 +1,15 @@
+{
+  "base_url": "https://my.cbg.163.com",
+  "cbg_safe_code": "Yl6JZk9H",
+  "cookies": "从 DevTools → Application → Cookies 复制，格式: name1=value1; name2=value2",
+  "headers": {
+    "Referer": "https://my.cbg.163.com/cgi/mweb/pl?search_type=role&tfid=f_kingkong&serverid=911"
+  },
+  "defaults": {
+    "client_type": "h5",
+    "exter": "direct",
+    "view_loc": "search_cond",
+    "tfid": "f_kingkong",
+    "page_session_id": "可选，从浏览器请求 body 复制"
+  }
+}

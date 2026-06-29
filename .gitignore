@@ -1,0 +1,12 @@
+config.json
+search.json
+.env
+jsonbin.config.json
+output/
+test_profile.json
+data/type_names.json
+.venv/
+__pycache__/
+*.pyc
+web/
+.cache_main.js

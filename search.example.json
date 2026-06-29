@@ -1,0 +1,39 @@
+{
+  "search": {
+    "search_type": "role",
+    "count": 15,
+    "view_loc": "search_cond",
+    "tfid": "f_kingkong",
+    "serverid": 911,
+    "gold": 100,
+    "order_by": "",
+    "refer_sn": "019F1167-5776-6711-3346-74D1C3ACDE8E",
+    "page_session_id": "019F115B-44A5-19A5-7DAE-2F7221EE28D5",
+    "exposed_scene_id": "1782703429040-e334a126",
+    "conds_labels": "[\"指定服务器:时空区 万里江山\",\"金币（万）≥100\"]",
+    "equip_special_skill_logic": "and",
+    "equip_special_effect_logic": "and",
+    "own_fabaos_logic": "or",
+    "shen_shou_logic": "and",
+    "ling_shou_logic": "and",
+    "zhen_shou_logic": "and",
+    "own_childs_school_logic": "or",
+    "mount_list_logic": "and",
+    "fashion_list_logic": "and",
+    "equip_fashion_list_logic": "and",
+    "skill_efx_list_logic": "and",
+    "enter_efx_list_logic": "and",
+    "nameplate_list_logic": "and",
+    "title_effect_list_logic": "and",
+    "team_background_list_logic": "and",
+    "bc_background_list_logic": "and",
+    "summon_fashion_list_logic": "and"
+  },
+  "crawl": {
+    "delay_seconds": 1.0,
+    "max_pages": null,
+    "output_dir": "output",
+    "fetch_detail": true,
+    "skip_existing": true
+  }
+}

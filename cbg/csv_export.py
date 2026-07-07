@@ -41,6 +41,30 @@ def _total_amount(items: list[dict[str, Any]] | None) -> int:
     return sum(int(item.get("amount") or 1) for item in (items or []))
 
 
+SHENSHOU_LIFE = 999999
+
+
+def _pet_life(pet: dict[str, Any]) -> int | None:
+    raw = pet.get("raw") or {}
+    life = raw.get("life")
+    if life in (None, ""):
+        return None
+    try:
+        return int(life)
+    except (TypeError, ValueError):
+        return None
+
+
+def _count_shenshou(summons: dict[str, Any]) -> int:
+    """寿命为 999999（永久）的召唤灵记作神兽。"""
+    count = 0
+    for key in ("summon_list", "warehouse_summons", "child_list"):
+        for pet in summons.get(key) or []:
+            if _pet_life(pet) == SHENSHOU_LIFE:
+                count += 1
+    return count
+
+
 def _format_items_detail(
     items: list[dict[str, Any]] | None,
     registry: TypeNameRegistry | None = None,
@@ -145,6 +169,7 @@ def profile_to_role_row(
         "背包物品明细": _format_items_detail(bag_items, registry),
         "召唤灵数": len(summon_list),
         "宠物格子数": (summons.get("raw") or {}).get("iMaxBSlot"),
+        "神兽数": _count_shenshou(summons),
         "召唤灵明细": _format_summons_detail(summon_list, registry),
         "sale_status": meta.get("sale_status"),
         "sale_status_label": meta.get("sale_status_label"),
@@ -192,6 +217,7 @@ def _empty_detail_row(context: dict[str, Any]) -> dict[str, Any]:
         "参战等级": "",
         "技能": "",
         "参战": "",
+        "寿命": "",
     }
 
 
@@ -235,6 +261,7 @@ def profile_to_unified_detail_rows(
                     "参战等级": "",
                     "技能": "",
                     "参战": "",
+                    "寿命": "",
                 }
             )
 
@@ -268,6 +295,7 @@ def profile_to_unified_detail_rows(
                     "参战等级": fight_grade,
                     "技能": _join_list([reg.lookup_skill(s) for s in (pet.get("skills") or [])]),
                     "参战": pet.get("fight_status"),
+                    "寿命": _pet_life(pet),
                 }
             )
 

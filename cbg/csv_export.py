@@ -21,6 +21,14 @@ def _price_yuan(summary: dict[str, Any], meta: dict[str, Any]) -> float | None:
     return float(price)
 
 
+def _resolve_role_name(
+    summary: dict[str, Any],
+    basic: dict[str, Any],
+    meta: dict[str, Any],
+) -> str:
+    return basic.get("cName") or summary.get("role_name") or meta.get("equip_name") or ""
+
+
 def _join_list(value: Any, sep: str = "|") -> str:
     if not value:
         return ""
@@ -108,7 +116,7 @@ def profile_to_role_row(
         "serverid": meta.get("serverid"),
         "server_name": summary.get("server_name") or meta.get("server_name"),
         "area_name": summary.get("area_name"),
-        "role_name": summary.get("role_name") or meta.get("equip_name"),
+        "role_name": _resolve_role_name(summary, basic, meta),
         "school": summary.get("school"),
         "level": summary.get("level"),
         "price": _price_yuan(summary, meta),
@@ -136,7 +144,13 @@ def profile_to_role_row(
         "背包物品总数": _total_amount(bag_items),
         "背包物品明细": _format_items_detail(bag_items, registry),
         "召唤灵数": len(summon_list),
+        "宠物格子数": (summons.get("raw") or {}).get("iMaxBSlot"),
         "召唤灵明细": _format_summons_detail(summon_list, registry),
+        "sale_status": meta.get("sale_status"),
+        "sale_status_label": meta.get("sale_status_label"),
+        "selling_time": meta.get("selling_time"),
+        "pass_fair_show": meta.get("pass_fair_show"),
+        "create_time": meta.get("create_time"),
     }
 
 
@@ -146,7 +160,7 @@ def _role_context(profile: dict[str, Any]) -> dict[str, Any]:
     basic = (profile.get("character") or {}).get("basic_attrs") or {}
     return {
         "ordersn": meta.get("ordersn"),
-        "role_name": summary.get("role_name") or meta.get("equip_name"),
+        "role_name": _resolve_role_name(summary, basic, meta),
         "school": summary.get("school"),
         "level": summary.get("level"),
         "price": _price_yuan(summary, meta),
@@ -272,10 +286,11 @@ def profile_to_equip_rows(
     reg = registry or get_registry()
     meta = profile.get("meta") or {}
     summary = (profile.get("character") or {}).get("summary") or {}
+    basic = (profile.get("character") or {}).get("basic_attrs") or {}
     items = profile.get("items") or {}
     base = {
         "ordersn": meta.get("ordersn"),
-        "role_name": summary.get("role_name") or meta.get("equip_name"),
+        "role_name": _resolve_role_name(summary, basic, meta),
     }
 
     rows: list[dict[str, Any]] = []
@@ -312,10 +327,11 @@ def profile_to_summon_rows(
     reg = registry or get_registry()
     meta = profile.get("meta") or {}
     summary = (profile.get("character") or {}).get("summary") or {}
+    basic = (profile.get("character") or {}).get("basic_attrs") or {}
     summons = profile.get("summons") or {}
     base = {
         "ordersn": meta.get("ordersn"),
-        "role_name": summary.get("role_name") or meta.get("equip_name"),
+        "role_name": _resolve_role_name(summary, basic, meta),
     }
 
     rows: list[dict[str, Any]] = []
